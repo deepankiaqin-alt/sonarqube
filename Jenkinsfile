@@ -6,7 +6,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/deepankiaqin-alt/sonarqube/new/main'
+                    url: https://github.com/deepankiaqin-alt/sonarqube.git
             }
         }
 
