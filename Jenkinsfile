@@ -28,7 +28,7 @@ pipeline {
                             -Dsonar.projectName=deepan0808 \
                             -Dsonar.sources=. \
                             -Dsonar.host.url=http://localhost:9000 \
-                            -Dsonar.login=sqp_c8667ecc1342dbb93149361e582fbd3471bbef3e
+                            -Dsonar.login=sqp_499f3c5c16a1eba977df8466ea76af659bea64eb
                         """
                     }
                 }
