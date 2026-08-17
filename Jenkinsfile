@@ -7,7 +7,7 @@ pipeline {
                 echo 'Git Clone'
                 git branch: 'main', 
                 credentialsId: 'Github-ID', 
-                url: 'https://github.com/deepankiaqin-alt/sonarqube.git'
+                url: 'https://github.com/deepankiaqin-alt/sonarqube.git', branch:'main'
             }
         }
         stage('Code Coverage') {
@@ -18,14 +18,14 @@ pipeline {
         stage('Sonarqube Analysis') {
             steps {
                 script {
-                    def scannerhome = tool name: 'SonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                    def scannerhome = tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
                     
                 withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
                     sh """
                             ${scannerhome}/bin/sonar-scanner \
                             -Dsonar.projectKey=deepan0808 \
                             -Dsonar.sources=app.js \
-                            -Dsonar.host.url=http://localhost:9000 \
+                            -Dsonar.host.url=http://172.31.14.116:9000 \
                             -Dsonar.login=$SONAR-TOKEN
                        """
                     }
