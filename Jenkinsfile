@@ -7,7 +7,7 @@ pipeline {
                 echo 'Git Clone'
                 git branch: 'main', 
                 credentialsId: 'Github-ID', 
-                url: 'https://github.com/deepankiaqin-alt/sonarqube.git', branch:'main'
+                url: 'https://github.com/deepankiaqin-alt/sonarqube.git'
             }
         }
         stage('Code Coverage') {
