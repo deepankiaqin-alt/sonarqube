@@ -1,38 +1,38 @@
 pipeline {
     agent any
-
+ 
     stages {
-
-        stage('Checkout') {
+        stage('SCM Checkout') {
             steps {
-                git branch: 'main',
-                    url: https://github.com/deepankiaqin-alt/sonarqube.git
+                echo 'Git Clone'
+                git branch: 'main', 
+                credentialsId: 'Github-ID', 
+                url: 'https://github.com/deepankiaqin-alt/sonarqube.git'
             }
         }
-
-        stage('Install Dependencies') {
+        stage('Code Coverage') {
             steps {
-                sh 'npm install'
+                sh 'echo "This is sonarqube task perfect"'
             }
         }
-
-        stage('SonarQube Analysis') {
+        stage('Sonarqube Analysis') {
             steps {
-                script{
+                script {
+                    def scannerhome = tool name: 'SonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
                     
-                    def scannerHome = tool 'SonarScanner'
-                    withSonarQubeEnv('SonarQube') {
-                        sh """
-                            ${scannerHome}/bin/sonar-scanner \
+                withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                    sh """
+                            ${scannerhome}/bin/sonar-scanner \
                             -Dsonar.projectKey=deepan0808 \
-                            -Dsonar.projectName=deepan0808 \
-                            -Dsonar.sources=. \
+                            -Dsonar.sources=app.js \
                             -Dsonar.host.url=http://localhost:9000 \
-                            -Dsonar.login=sqp_499f3c5c16a1eba977df8466ea76af659bea64eb
-                        """
+                            -Dsonar.login=$SONAR-TOKEN
+                       """
                     }
-                }
+                
+                } 
             }
         }
+          
     }
 }
